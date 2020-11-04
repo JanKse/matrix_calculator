@@ -3,21 +3,34 @@
 
 
 int main(void){
+    int choice;
     struct matrix matrix_A={{{1,2,3},{4,5,6},{7,8,9}}, 3, 3};
-    struct matrix matrix_B={{{0,1},{1,2},{3,4}}, 3, 2};
+    struct matrix matrix_B={{{1,2,3},{4,5,6},{7,8,9}}, 3, 3};
     struct matrix matrix_C = {{0}, 0, 0};
     
-    print_matrix(matrix_A);
-    print_matrix(matrix_B);
-    multiplication_matrix(&matrix_C,matrix_A,matrix_B);
-    print_matrix(matrix_C);
-
-
-    if (matrix_A.rows!=matrix_B.cols)
-    {
-        printf("Chyba\n");
-        return 0;
+    
+   do {
+    choice = menu();
+    switch (choice) {
+    case 1:
+      adding_matrices(matrix_A, matrix_B);
+      break;
+    case 2:
+      subtracting_matrices(matrix_A, matrix_B);
+      break;
+    case 3:
+      // scalar_multiplication();
+      break;
+    case 4:
+      multiplication_matrix(matrix_A, matrix_B);
+      break;
+    case 5:
+      //matrix_transposition();
+      break;
+    case 6:
+      break;
     }
+  } while (choice != 6);
     
     return 0;
 }
