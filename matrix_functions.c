@@ -9,7 +9,7 @@ void print_matrix(struct matrix X) {
   for (int i = 0; i < X.rows; i++) {
     printf("\t");
     for (int j = 0; j < X.cols; j++) {
-      printf("%.3f\t", X.element[i][j]);
+      printf("%d\t", X.element[i][j]);
     };
     printf("\n");
   }
@@ -21,12 +21,12 @@ void print_matrices(struct matrix A, struct matrix B){
   {
     for (int j = 0; j < A.cols; j++)
     {
-      printf("%.3f\t", A.element[i][j]);
+      printf("%d\t", A.element[i][j]);
     }
     printf("|   ");
     for (int k = 0; k < B.cols; k++)
     {
-      printf("%.3f\t", B.element[i][k]);
+      printf("%d\t", B.element[i][k]);
     }
     
     printf("\n");
@@ -59,13 +59,14 @@ int menu(void) {
   return choice;
 }
 
-void adding_matrices(struct matrix A, struct matrix B) {
+void adding_matrices(void) {
   int y_n = 121;
-  struct matrix Z;
-  Z.rows = A.rows;
-  Z.cols = A.cols;
+  
   do {
     system("cls");
+    struct matrix A=get_matrix();
+    struct matrix B=get_matrix();
+    struct matrix Z=allocate_memory_for_matrix(A.rows,A.cols,Z);
     printf("\n########################## ADDING MATRICES ##########################\n\n");
     printf("\n_______________ YOUR MATRICES _______________\n");
     print_matrices(A,B);
@@ -92,18 +93,18 @@ void adding_matrices(struct matrix A, struct matrix B) {
 
 }
 
-void subtracting_matrices(struct matrix A, struct matrix B) {
+void subtracting_matrices(void) {
   int y_n = 121;
-  struct matrix Z;
+  
   do {
     system("cls");
+    struct matrix A=get_matrix();
+    struct matrix B=get_matrix();
+    struct matrix Z=allocate_memory_for_matrix(A.rows,A.cols,Z);
     printf("\n########################## SUBTRACING MATRICES ##########################\n\n");
     printf("\n_______________ YOUR MATRICES _______________\n");
     print_matrices(A,B);
     printf("___________________________________________\n\n");
-
-    Z.rows = A.rows;
-    Z.cols = A.cols;
     if (A.rows == B.rows && A.cols == B.cols) {
       for (int i = 0; i < Z.rows; i++) {
         for (int j = 0; j < Z.cols; j++) {
@@ -125,24 +126,30 @@ void subtracting_matrices(struct matrix A, struct matrix B) {
 
 }
 
-void multiplication_matrix(struct matrix A, struct matrix B) {
+void multiplication_matrix(void) {
   int y_n = 121;
-  struct matrix Z = {
-    {
-      0
-    },
-    A.rows,
-    B.cols
-  };
+  
   int k;
   do {
     system("cls");
+    struct matrix A =get_matrix();
+    struct matrix B =get_matrix();
+    struct matrix Z=allocate_memory_for_matrix(A.rows,B.cols,Z);
+    
     printf("\n########################## MULTIPLICATION MATRICES ##########################\n\n");
     printf("\n_______________ YOUR MATRICES _______________\n");
     print_matrices(A,B);
     printf("___________________________________________\n\n");
 
     if (A.rows == B.cols && A.cols == B.rows) {
+      for (int i= 0; i < Z.rows; i++)
+      {
+        for (int j = 0; j < Z.cols; j++)
+        {
+          Z.element[i][j]=0;
+        }
+        
+      }
       for (int i = 0; i < Z.rows; i++) {
         for (int j = 0; j < Z.cols; j++) {
           for (Z.element[i][j], k = 0; k < A.cols; k++) {
@@ -150,6 +157,7 @@ void multiplication_matrix(struct matrix A, struct matrix B) {
           }
         }
       }
+      
       printf("_______________ RESULT ____________________\n");
       print_matrix(Z);
       printf("___________________________________________\n\n");
@@ -165,11 +173,13 @@ void multiplication_matrix(struct matrix A, struct matrix B) {
 
 }
 
-void scalar_multiplication(int scalar, struct matrix A){
+void scalar_multiplication(void){
 int y_n=121; 
 do
 {
   system("cls");
+  struct matrix A=get_matrix();
+  int scalar=get_scalar();
   printf("\n########################## SCALAR MULTIPLACATION ##########################\n\n");
   printf("\n_______________ YOUR SCALAR _______________\n");
   printf("\t%d",scalar);
@@ -195,13 +205,16 @@ do
 
 }
 
-void matrix_transposition(struct matrix A){
-  struct matrix Z;;
-  Z.rows=A.cols;
-  Z.cols=A.rows;
+void matrix_transposition(void){
+
+  
+  
   int y_n=121;
   do
   {
+    system("cls");
+    struct matrix A=get_matrix();
+    struct matrix Z=allocate_memory_for_matrix(A.rows,A.cols,Z);
     system("cls");
     printf("\n########################## MATRIX TRANSPOSITION ##########################\n\n");
     printf("\n_______________ YOUR MATRIX _______________\n");
@@ -218,9 +231,50 @@ void matrix_transposition(struct matrix A){
   printf("_______________ RESULT ____________________\n");
   print_matrix(Z);
   printf("___________________________________________\n\n");
+  free(Z.element);
   printf("Do you want to return to main menu ? y/n : ");
       scanf("%s", & y_n);
   } while (y_n!='y');
   
   
+}
+
+struct matrix get_matrix(void){
+  struct matrix A;
+
+  printf("Write count of rows:\t");
+  scanf("%d",&(A.rows));
+  printf("Write count of cols:\t");
+  scanf("%d",&(A.cols));
+  A=allocate_memory_for_matrix(A.rows,A.cols,A);
+  
+  for (int i = 0; i < A.rows; i++)
+  {
+    for (int j = 0; j < A.cols; j++)
+    {
+      printf("Enter value for matrix[%d][%d] : ", i,j);
+      scanf("%d", &(A.element[i][j]));
+    }
+    
+  }
+  
+  return A;
+}
+struct matrix allocate_memory_for_matrix(int m, int n, struct matrix A){
+  A.rows=m;
+  A.cols=n;
+  A.element=malloc(A.rows*sizeof(int*));
+  for (int i = 0; i < A.rows; i++)
+  {
+    A.element[i]=malloc(A.cols*sizeof(int*));
+  }
+  return A;
+}
+
+int get_scalar(void){
+  int a;
+  printf("Your scalar : ");
+  scanf("%d", &a);
+
+  return a;
 }

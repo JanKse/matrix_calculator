@@ -4,9 +4,7 @@
 
 int main(void){
     int choice;
-    struct matrix matrix_A={{{1,2,3},{4,5,6},{7,8,9}}, 3, 3};
-    struct matrix matrix_B={{{1,2,3},{4,5,6},{7,8,9}}, 3, 3};
-    struct matrix matrix_C = {{0}, 0, 0};
+   
     int scalar=2;
     
     
@@ -14,19 +12,20 @@ int main(void){
     choice = menu();
     switch (choice) {
     case 1:
-      adding_matrices(matrix_A, matrix_B);
+      adding_matrices();
+      
       break;
     case 2:
-      subtracting_matrices(matrix_A, matrix_B);
+      subtracting_matrices();
       break;
     case 3:
-      scalar_multiplication(scalar,matrix_A);
+      scalar_multiplication();
       break;
     case 4:
-      multiplication_matrix(matrix_A, matrix_B);
+      multiplication_matrix();
       break;
     case 5:
-      matrix_transposition(matrix_A);
+      matrix_transposition();
       break;
     }
   } while (choice != 6);
