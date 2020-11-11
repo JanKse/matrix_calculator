@@ -16,3 +16,4 @@ void matrix_transposition(void);
 int menu(void);
 struct matrix get_matrix(void);
 struct matrix allocate_memory_for_matrix(int m, int n, struct matrix);
+void free_matrix(struct matrix A);
