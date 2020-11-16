@@ -13,7 +13,6 @@ int main(void){
     switch (choice) {
     case 1:
       adding_matrices();
-      
       break;
     case 2:
       subtracting_matrices();

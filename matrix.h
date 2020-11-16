@@ -6,8 +6,8 @@ struct matrix
     int rows, cols;
 };
 
-void print_matrix(struct matrix X);
-void print_matrices(struct matrix A, struct matrix B);
+void print_matrix(struct matrix X, char label[]);
+void print_matrices(struct matrix A, struct matrix B, char label[]);
 void multiplication_matrix(void);
 void adding_matrices(void);
 void subtracting_matrices(void);

@@ -4,7 +4,8 @@
 
 #include <stdlib.h>
 
-void print_matrix(struct matrix X) {
+void print_matrix(struct matrix X, char label[]) {
+  printf("\n_______________ %s _______________\n", label);
   printf("\n");
   for (int i = 0; i < X.rows; i++) {
     printf("\t");
@@ -13,9 +14,10 @@ void print_matrix(struct matrix X) {
     };
     printf("\n");
   }
-
+  printf("___________________________________________\n\n");
 }
-void print_matrices(struct matrix A, struct matrix B){
+void print_matrices(struct matrix A, struct matrix B, char label[]){
+  printf("\n_______________ %s _______________\n", label);
   printf("\n");
   for (int i = 0; i < A.rows; i++)
   {
@@ -31,7 +33,7 @@ void print_matrices(struct matrix A, struct matrix B){
     
     printf("\n");
   }
-  
+  printf("___________________________________________\n\n");
 }
 int menu(void) {
   system("cls");
@@ -58,14 +60,6 @@ int menu(void) {
   printf("%d", choice);
   return choice;
 }
-
-
-
-
-
-
-
-
 
 struct matrix get_matrix(void){
   struct matrix A;
